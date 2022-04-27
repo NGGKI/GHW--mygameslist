@@ -1,1 +1,10 @@
-module.exports = require('mongoose').connect(process.env.MONGODB_URI || 'mongodb://localhost/project3_db')
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/gamebooks', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
+
+module.exports = mongoose.connection;

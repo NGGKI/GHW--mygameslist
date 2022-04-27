@@ -1,48 +1,32 @@
-require('dotenv').config()
+const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
+const path = require('path');
 
-const express = require('express')
-const { join } = require('path')
-const passport = require('passport')
-const { User, Post, Comment } = require('./models')
-const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt')
-const app = express()
+const { typeDefs, resolvers } = require('./schemas');
+const { authMiddleware } = require('./utils/auth');
+const db = require('./config/connection');
 
-app.use(express.static(join(__dirname, 'public')))
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+const PORT = process.env.PORT || 3001;
+const app = express();
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: authMiddleware,
+});
 
-app.use(passport.initialize())
-app.use(passport.session())
+server.applyMiddleware({ app });
 
-passport.use(User.createStrategy())
-passport.serializeUser((user, done) => {
-  done(null, user.id)
-})
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-passport.deserializeUser((id, done) => {
-  User.findOne({ id })
-    .then(user => done(null, user))
-    .catch(err => done(err, null))
-})
-
-passport.use(new JWTStrategy({
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.SECRET
-}, async function ({ id }, cb) {
-  try {
-    const user = await User.findOne({ where: { id }, include: [Post] })
-    cb(null, user)
-  } catch (err) {
-    cb(err, null)
-  }
-}))
-
-app.use(require('./routes'))
-
-
-async function init() {
-  await require('./db').sync()
-  app.listen(process.env.PORT || 3000)
+// Serve up static assets
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-init()
+db.once('open', () => {
+  app.listen(PORT, () => {
+    console.log(` 🌍 API server running on port ${PORT}!`);
+    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  });
+});
