@@ -21,7 +21,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    savedGame: [gameSchema],
+    savedGames: [gameSchema],
   },
   // set this to use virtual below
   {

@@ -12,7 +12,7 @@ const gameSchema = new Schema({
     required: true,
   },
   // saved book id from gameAPI
-  gameID: {
+  gameId: {
     type: String,
     required: true,
   },
