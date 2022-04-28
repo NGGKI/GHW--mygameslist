@@ -13,65 +13,66 @@
 // import { SAVE_BOOK } from '../utils/mutations';
 // import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
-// import Auth from '../utils/auth';
+import { SAVE_GAME } from '../../../server/utils/mutations';
+import Auth from '../utils/auth';
 
-// const SearchBooks = () => {
-//   // create state for holding returned google api data
-//   const [searchedBooks, setSearchedBooks] = useState([]);
-//   // create state for holding our search field data
-//   const [searchInput, setSearchInput] = useState('');
+const SearchGames = () => {
+  // create state for holding returned google api data
+  const [searchedGames, setSearchedGames] = useState([]);
+  // create state for holding our search field data
+  const [searchInput, setSearchInput] = useState('');
 
-//   // create state to hold saved bookId values
-//   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+  // create state to hold saved bookId values
+  const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
 
-//   const [saveBook, { error }] = useMutation(SAVE_BOOK);
+  const [saveGame, { error }] = useMutation(SAVE_GAME);
 
-//   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
-//   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
-//   useEffect(() => {
-//     return () => saveBookIds(savedBookIds);
-//   });
+  // set up useEffect hook to save `savedGameIds` list to localStorage on component unmount
+  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
+  useEffect(() => {
+    return () => saveBookIds(savedGameIds);
+  });
 
-//   // create method to search for books and set state on form submit
-//   const handleFormSubmit = async (event) => {
-//     event.preventDefault();
+  // create method to search for books and set state on form submit
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
 
-//     if (!searchInput) {
-//       return false;
-//     }
+    if (!searchInput) {
+      return false;
+    }
 
-//     try {
-//       const response = await fetch(
-    
-//         method: 'GET',
-//         url: 'https://free-to-play-games-database.p.rapidapi.com/api/games',
-//         headers: {
-//           'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com',
-//           'X-RapidAPI-Key': '0940aa0e08msh4e2680b65886283p11bd47jsn7caf496cf832'
-//         },
-      
-//       );
+    try {
+      const response = await fetch(
+        'https://free-to-play-games-database.p.rapidapi.com/api/game?id=', searchInput
+        
+        {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com',
+            'X-RapidAPI-Key': '0940aa0e08msh4e2680b65886283p11bd47jsn7caf496cf832'
+          },
+        });
 
-//       if (!response.ok) {
-//         throw new Error('something went wrong!');
-//       }
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
 
-//       const { items } = await response.json();
+      const { items } = await response.json();
 
-//       const bookData = items.map((book) => ({
-//         bookId: book.id,
-//         authors: book.volumeInfo.authors || ['No author to display'],
-//         title: book.volumeInfo.title,
-//         description: book.volumeInfo.description,
-//         image: book.volumeInfo.imageLinks?.thumbnail || '',
-//       }));
+      // const bookData = items.map((book) => ({
+      //   gameId: game.id,
+      //   authors: game.volumeInfo.authors || ['No author to display'],
+      //   title: book.volumeInfo.title,
+      //   description: book.volumeInfo.description,
+      //   image: book.volumeInfo.imageLinks?.thumbnail || '',
+      // }));
 
-//       setSearchedBooks(bookData);
-//       setSearchInput('');
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
+      setSearchedGames(gameData);
+      setSearchInput('');
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
 //   // create function to handle saving a book to our database
 //   const handleSaveBook = async (bookId) => {
@@ -166,4 +167,4 @@
 //   );
 // };
 
-// export default SearchBooks;
+export default SearchGames;
