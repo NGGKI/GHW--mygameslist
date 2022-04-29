@@ -150,31 +150,52 @@ li a:hover, .dropdown:hover .dropbtn {
 }
 
 .content {
-  box-sizing: border-box;
-  display: table;
-  padding: 10px 0;
-  table-layout: fixed;
-  width:100%;
-}
-
-.left-content {
-  background-color: #555;
-  display:table-cell;
-  vertical-align: top;
-  width: 740px;
-  box-sizing: border-box;
-  border-color: #444;
+  width: 100%;
+  border-color: #ebebeb;
   border-style: solid;
-  border-width: 0 5px 0 0;
+  border-width: 0 1px 1px;
+  padding: 5px 10px 10px;
+  position: relative;
 }
 
-.right-content {
-  background-color: #555;
-  display: table-cell;
-  width: 320px;
-  vertical-align: top;
+.login-inputtext {
+  border: #999 1px solid;
+  font-size: 16px;
+  height: 40px;
+  margin-bottom: 3px;
+  padding: 0 8px;
+  vertical-align: baseline;
+  width: 380px;
 }
 
-.content-container-left {
-  margin: 0 10px 20px;
+.login-label {
+  color: white;
+  font-size: 15px;
+  display: block;
+}
+
+.loginBtn {
+  background-color: #777;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  min-width: 160px;
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.signUpBtn {
+  background-color: #777;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  min-width: 160px;
+  padding: 10px 12px;
+  text-align: center;
 }
