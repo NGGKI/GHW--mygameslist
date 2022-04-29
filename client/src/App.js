@@ -1,12 +1,12 @@
 import Header from "./components/Header"
 import Nav from "./components/Nav"
-import Main from "./components/Main"
+import Main from "./pages/mainPage"
 function App() {
   return (
     <>
-    <Header />
-    <Nav />
-    <Main />
+      <Header />
+      <Nav />
+      <Main />
     </>
   )
 }
