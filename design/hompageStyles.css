@@ -149,3 +149,32 @@ li a:hover, .dropdown:hover .dropbtn {
   border-bottom: 1px solid #111;
 }
 
+.content {
+  box-sizing: border-box;
+  display: table;
+  padding: 10px 0;
+  table-layout: fixed;
+  width:100%;
+}
+
+.left-content {
+  background-color: #555;
+  display:table-cell;
+  vertical-align: top;
+  width: 740px;
+  box-sizing: border-box;
+  border-color: #444;
+  border-style: solid;
+  border-width: 0 5px 0 0;
+}
+
+.right-content {
+  background-color: #555;
+  display: table-cell;
+  width: 320px;
+  vertical-align: top;
+}
+
+.content-container-left {
+  margin: 0 10px 20px;
+}
